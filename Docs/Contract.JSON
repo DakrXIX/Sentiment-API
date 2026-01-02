@@ -1,0 +1,60 @@
+{
+  "service": "Sentiment Analysis API",
+  "version": "1.0",
+  "endpoint": {
+    "path": "/sentiment",
+    "method": "POST",
+    "description": "Recibe un texto y devuelve el sentimiento detectado por el modelo"
+  },
+  "request": {
+    "content-type": "application/json",
+    "body": {
+      "text": {
+        "type": "string",
+        "required": true,
+        "min_length": 5,
+        "example": "El servicio fue excelente y llegó muy rápido"
+      }
+    }
+  },
+  "response": {
+    "success": {
+      "status": 200,
+      "body": {
+        "prevision": {
+          "type": "string",
+          "values": ["Positivo", "Negativo"],
+          "example": "Positivo"
+        },
+        "probabilidad": {
+          "type": "number",
+          "range": [0, 1],
+          "example": 0.87
+        }
+      }
+    },
+    "validation_error": {
+      "status": 400,
+      "body": {
+        "error": {
+          "type": "string",
+          "example": "El campo 'text' es obligatorio y debe tener al menos 5 caracteres"
+        }
+      }
+    },
+    "internal_error": {
+      "status": 500,
+      "body": {
+        "error": {
+          "type": "string",
+          "example": "No se pudo procesar el texto"
+        }
+      }
+    }
+  },
+  "notes": [
+    "Los nombres de los campos no deben cambiarse",
+    "La probabilidad corresponde a la clase devuelta",
+    "Cualquier cambio debe hacerse en una nueva versión del contrato"
+  ]
+}
