@@ -15,7 +15,6 @@ def sentiment(req: SentimentRequest):
 
     text = req.text.strip()
 
-    # validación mínima (backend también valida, pero esto protege la API)
     if len(text) < 5:
         raise HTTPException(
             status_code=400,
@@ -36,3 +35,4 @@ def sentiment(req: SentimentRequest):
             status_code=500,
             detail="No se pudo procesar el texto"
         )
+
