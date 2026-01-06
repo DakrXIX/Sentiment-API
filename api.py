@@ -4,7 +4,7 @@ import joblib
 
 app = FastAPI(title="Sentiment Analysis API")
 
-model = joblib.load("model.pkl")
+model = joblib.load("modelo_sentimientos.pkl")
 
 class SentimentRequest(BaseModel):
     text: str
@@ -19,3 +19,4 @@ def predict_sentiment(request: SentimentRequest):
         "prevision": "Positivo" if prediction == 1 else "Negativo",
         "probabilidad": float(probability)
     }
+
