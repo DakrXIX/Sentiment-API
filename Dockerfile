@@ -14,7 +14,8 @@ COPY Requirements.txt .
 RUN pip install --no-cache-dir -r Requirements.txt
 
 COPY . .
+# Puerto REAL del servicio
+EXPOSE 8000
 
-EXPOSE 8081
-
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8081", "--workers", "1"]
+# Comando CORRECTO para FastAPI
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]
