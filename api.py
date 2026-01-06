@@ -13,7 +13,9 @@ class SentimentRequest(BaseModel):
 def load_model():
     global model
     model = joblib.load("modelo_sentimientos.pkl")
-
+@app.get("/sentiment")
+def sentiment_health():
+    return {"status": "ok"}
 @app.api_route("/sentiment", methods=["GET", "POST"])
 def predict_sentiment(request: SentimentRequest):
 
@@ -24,6 +26,7 @@ def predict_sentiment(request: SentimentRequest):
         "prevision": "Positivo" if prediction == 1 else "Negativo",
         "probabilidad": float(probability)
     }
+
 
 
 
