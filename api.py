@@ -14,7 +14,7 @@ def load_model():
     global model
     model = joblib.load("modelo_sentimientos.pkl")
 
-@app.route("/sentiment", methods=["POST"])
+@app.post("/sentiment")
 def predict_sentiment(request: SentimentRequest):
 
     prediction = model.predict([request.text])[0]
@@ -24,4 +24,5 @@ def predict_sentiment(request: SentimentRequest):
         "prevision": "Positivo" if prediction == 1 else "Negativo",
         "probabilidad": float(probability)
     }
+
 
