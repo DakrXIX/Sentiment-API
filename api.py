@@ -16,9 +16,8 @@ def load_model():
 @app.get("/sentiment")
 def sentiment_health():
     return {"status": "ok"}
-@app.api_route("/sentiment", methods=["GET", "POST"])
+@app.post("/sentiment")
 def predict_sentiment(request: SentimentRequest):
-
     prediction = model.predict([request.text])[0]
     probability = model.predict_proba([request.text])[0].max()
 
@@ -26,6 +25,7 @@ def predict_sentiment(request: SentimentRequest):
         "prevision": "Positivo" if prediction == 1 else "Negativo",
         "probabilidad": float(probability)
     }
+
 
 
 
