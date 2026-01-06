@@ -1,38 +1,21 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 
-# cargar el modelo al arrancar
-model = joblib.load("modelo_sentimientos.pkl")
+app = FastAPI(title="Sentiment Analysis API")
 
-app = FastAPI()
+model = joblib.load("model.pkl")
 
 class SentimentRequest(BaseModel):
     text: str
 
 @app.post("/sentiment")
-def sentiment(req: SentimentRequest):
+def predict_sentiment(request: SentimentRequest):
 
-    text = req.text.strip()
+    prediction = model.predict([request.text])[0]
+    probability = model.predict_proba([request.text])[0].max()
 
-    if len(text) < 5:
-        raise HTTPException(
-            status_code=400,
-            detail="El campo 'text' es obligatorio y debe tener al menos 5 caracteres"
-        )
-
-    try:
-        pred = model.predict([text])[0]
-        prob = model.predict_proba([text]).max()
-
-        return {
-            "prevision": "Positivo" if pred == 1 else "Negativo",
-            "probabilidad": float(prob)
-        }
-
-    except Exception:
-        raise HTTPException(
-            status_code=500,
-            detail="No se pudo procesar el texto"
-        )
-
+    return {
+        "prevision": "Positivo" if prediction == 1 else "Negativo",
+        "probabilidad": float(probability)
+    }
