@@ -31,14 +31,16 @@ def predict_sentiment(request: SentimentRequest):
 
     # Predicción
     prediction = model.predict([text])[0]
+    print("Prediction:", prediction)
     proba = model.predict_proba([text])[0]
+    print("Probabilities:", proba)
     confidence = max(proba)
-
+    print("Confidence:", confidence)
     # Aplicar umbral de confianza
-    if confidence < request.threshold:
+    if confidence > 0.49 and confidence < 0.6:
         sentiment = "Neutro"
     else:
-        sentiment = "Positivo" if prediction == 1 else "Negativo"
+        sentiment = "Positivo" if prediction == 3 else "Negativo"
 
     # Logging
     logging.info(f"Texto: {text}, Predicción: {sentiment}, Confianza: {confidence:.2f}")
@@ -47,8 +49,8 @@ def predict_sentiment(request: SentimentRequest):
         "texto": text,
         "prevision": sentiment,
         "probabilidades": {
-            "Negativo": float(proba[0]),
-            "Positivo": float(proba[1])
+            "Positivo": float(proba[1]),
+            "Negativo": float(proba[0])
         },
         "confianza": float(confidence),
         "umbral": request.threshold
