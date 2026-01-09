@@ -1,6 +1,4 @@
-# Sentiment-API
-MVP de análisis de sentimiento que integra Data Science (Python, TF-IDF + Logistic Regression) con una API REST en Java mediante un contrato JSON.
-# 📊 Sentiment Analysis API – Machine Learning & FastAPI
+ 📊 Sentiment Analysis API – Machine Learning & FastAPI
 
 ## 🧠 Descripción del Proyecto
 
@@ -10,35 +8,82 @@ Este proyecto implementa un sistema de **análisis de sentimientos** basado en t
 - **Neutral (2)**
 - **Positivo (3)**
 
-El modelo fue entrenado con datos reales de tweets relacionados con vacunas COVID-19 y desplegado como una **API REST** utilizando **FastAPI**.
+El usuario ingresa un texto desde una interfaz web y el sistema determina automáticamente el sentimiento asociado, entregando además probabilidades por clase para mayor transparencia del resultado.
 
+🌍 Soporte multilingüe (ES / PT)
+
+Aunque el modelo de Machine Learning fue entrenado en inglés, la API acepta textos en español y portugués.
+Para lograrlo, el sistema incorpora una capa de traducción automática a inglés antes de la inferencia, permitiendo reutilizar el modelo sin necesidad de reentrenamiento.
+
+Este diseño equilibra:
+
+eficiencia técnica
+
+menor costo computacional
+
+facilidad de uso para usuarios finales
+
+Además del análisis en tiempo real, el sistema almacena cada predicción en una base de datos, guardando el texto original del usuario junto con el resultado. Esto permite:
+
+Trazabilidad
+
+Análisis histórico
+
+Estadísticas agregadas
+
+Futuras extensiones analíticas
+
+El modelo fue entrenado con datos reales de tweets relacionados con vacunas COVID-19 y desplegado como una API REST utilizando FastAPI, integrando Machine Learning, backend y persistencia de datos en una solución completa.
 ---
 
-## 🎯 Objetivos
+🎯 Objetivos del Proyecto
 
-- Construir un modelo de clasificación de texto
-- Optimizar el modelo mediante validación cruzada
-- Exponer el modelo a través de una API
-- Permitir su consumo desde aplicaciones externas
-- Demostrar el flujo completo de ML en producción
+Construir un modelo de clasificación de texto usando NLP
 
+Optimizar el modelo mediante validación cruzada
+
+Exponer el modelo a través de una API REST
+
+Permitir su consumo desde aplicaciones web
+
+Demostrar un flujo completo de ML en producción
+(Machine Learning + API + Base de Datos + Frontend)
+
+Servir como base para proyectos de:
+
+feedback de clientes
+
+encuestas de satisfacción
+
+monitoreo de opiniones
+
+👥 Público Objetivo
+
+Personas del área tecnológica
+(desarrollo, data, TI, ciencia de datos)
+
+Personas no técnicas
+(negocio, gestión, usuarios finales)
+
+La documentación y el diseño del sistema están pensados para ser comprensibles por ambos perfiles, explicando tanto el qué como el por qué de cada componente.
 ---
 
 ## 🏗️ Arquitectura del Sistema
 
-Texto del usuario
+
+Texto del usuario (ES/PT)
 
 ↓
 
-Limpieza de texto
+Traducción automática a inglés
 
 ↓
 
-TF-IDF Vectorizer
+Limpieza y normalización de texto
 
 ↓
 
-Logistic Regression
+Pipeline de Machine Learning (TF-IDF + Clasificador)
 
 ↓
 
@@ -46,26 +91,140 @@ API FastAPI (/predict)
 
 ↓
 
-Respuesta JSON
+Respuesta JSON + Persistencia en DB
 
-## 🤖 Modelo de Machine Learning
+Para mayor comprensión de nuestro proyecto en personas que no son del área de la tecnología presentamos el siguiente Diagrama de Flujo:
 
-- **Algoritmo:** Logistic Regression
-- **Vectorización:** TF-IDF
-- **Optimización:** GridSearchCV
-- **Métrica:** F1-score macro
-- **Implementación:** Pipeline de scikit-learn
+🔄 Flujo Paso a Paso
+
+1️⃣ Persona usuaria 👤
+
+Ingresa un texto en el formulario web.
+
+Ejemplo:
+
+“Es muy buena y efectiva”
+
+2️⃣ Página Web 🌐
+
+Recibe el texto del usuario.
+
+No realiza ningún análisis.
+
+Envía el texto a la API.
+
+3️⃣ JavaScript (script.js) 🔁
+
+Lee el texto ingresado.
+
+Envía una solicitud POST a la API usando fetch.
+
+Recibe la respuesta
+
+Muestra:
+
+Sentimiento final
+
+Texto traducido al inglés
+
+Probabilidades por clase
+
+4️⃣ API (app.py) ⚙️
+
+Recibe el texto original desde el frontend.
+
+Traduce automáticamente a inglés
+
+Limpia el texto traducido
+
+Ejecuta el modelo de Machine Learning
+
+Guarda el resultado en la base de datos
+
+5️⃣ Modelo de Machine Learning 🤖
+
+Analiza el texto utilizando técnicas de NLP y lo guarda en la base de datos.
+
+Clasifica el sentimiento como:
+
+Positivo
+
+Negativo
+
+Neutral 
+
+Calcula probabilidades por clase
+
+6️⃣ Respuesta 📦
+
+La API devuelve una respuesta en formato JSON:
+
+{
+  "texto_original": "Es muy buena y efectiva",
+  
+  "texto_traducido": "It is very good and effective",
+  
+  "sentimiento_id": 3,
+  
+  "sentimiento": "Positivo",
+  
+  "probabilidades": {
+  
+    "Negativo": 0.02,
+    
+    "Neutral": 0.08,
+    
+    "Positivo": 0.90
+  }
+}
 
 ---
 
-## ⚙️ Tecnologías Utilizadas
+## 🤖 Modelo de Machine Learning
 
-- [Python](https://www.python.org/) 3.12
-- [FastAPI](https://fastapi.tiangolo.com/)
-- [Scikit-learn](https://scikit-learn.org/)
-- [Uvicorn](https://www.uvicorn.org/)
-- [Joblib](https://joblib.readthedocs.io/)
-- [Pytest](https://docs.pytest.org/)
+Algoritmo: Logistic Regression (pipeline)
+
+Vectorización: TF-IDF
+
+Optimización: GridSearchCV
+
+Métrica principal: F1-score macro
+
+Implementación: Pipeline de scikit-learn
+
+Idioma de entrenamiento: Inglés
+
+---
+
+🛠️ Tecnologías Utilizadas
+
+Frontend: HTML, JavaScript
+
+Backend: Python (Flask o FastAPI)
+
+Machine Learning: Scikit-learn
+
+NLP: TF-IDF, Logistic Regression / Naive Bayes
+
+Traducción: deep-translator (GoogleTranslator)
+
+Base de Datos: SQLite
+
+ORM: SQLAlchemy
+
+Comunicación: API REST (JSON)
+
+Logging: logging + RotatingFileHandler
+
+  ## 🧪 Dataset
+
+- **Fuente:** Kaggle
+- **Nombre:** COVID-19 Vaccine Tweets with Sentiment
+- **Formato:** CSV
+- **Codificación:** latin1
+
+🔗 Enlace al dataset:  
+https://www.kaggle.com/datasets/gpreda/covid19-vaccine-tweets-with-sentiment
 
 ---
 
@@ -73,19 +232,11 @@ Respuesta JSON
 
 ### `POST /predict`
 
-Recibe un texto y retorna el sentimiento detectado.
+Recibe un texto y retorna el sentimiento detectado, el texto traducido y las probabilidades.
 
-**Ejemplo de Request:**
-```json
-{
-  "texto": "La vacuna es muy efectiva"
-}
+GET /stats
 
-**Ejemplo de Response:**
-{
-  "sentimiento_id": 3,
-  "sentimiento": "Positivo"
-}
+Entrega estadísticas agregadas de las predicciones almacenadas en la base de datos.
 
 🧪 Pruebas y Validación
 
@@ -95,28 +246,23 @@ Funcionamiento del endpoint /predict
 
 Manejo de errores (texto vacío)
 
-Respuesta en formato JSON
+Respuestas JSON estructuradas
 
-Ejecutar tests:
-
-pytest
-
-🌐 Despliegue (pendiente)
+Persistencia correcta en base de datos
 
 
-Este proyecto esta siendo desarrollado de manera colaborativa por:
+Este proyecto está siendo desarrollado de manera colaborativa por:
 
+- Carlos Gastón Fernández 
 - Cesar Araya  
 - Cesar Londono  
 - Gloria Gutiérrez  
-- Marcos Perez  
-- Victor Araya  
-- Yober Cieza  
-- Carlos Gaston Fernandez  
 - José Luis Planes  
-- Lester Hernandez  
-- Wilmer Acosta  
-
+- Lester Hernández 
+- Marcos Pérez  
+- Víctor Araya  
+- Yober Cieza  
+- Wilmer Acosta
 
 
   
