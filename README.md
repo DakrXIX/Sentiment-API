@@ -178,6 +178,22 @@ La API devuelve una respuesta en formato JSON:
   }
 }
 
+**Ejemplos**
+
+## Ejemplos
+
+### Positivo (Español)
+![Positivo Español](https://github.com/user-attachments/assets/a4f1d027-e2d5-4e92-b919-ea325b21b9c2)
+
+### Positivo (Portugués)
+![Positivo Portugués](https://github.com/user-attachments/assets/3f7eac53-827c-453d-849e-03ef1f1b58c2)
+
+### Neutro
+![Neutro](https://github.com/user-attachments/assets/02ac9c33-b34b-4aeb-8b4a-8fe75e393d36)
+
+### Negativo
+![Negativo](https://github.com/user-attachments/assets/5a24e672-885b-49f9-a5dd-ca9a237776c4)
+
 ---
 
 ## 🤖 Modelo de Machine Learning
