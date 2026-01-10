@@ -178,7 +178,6 @@ La API devuelve una respuesta en formato JSON:
   }
 }
 
-**Ejemplos**
 
 ## Ejemplos
 
@@ -194,6 +193,9 @@ La API devuelve una respuesta en formato JSON:
 ### Negativo
 ![Negativo](https://github.com/user-attachments/assets/5a24e672-885b-49f9-a5dd-ca9a237776c4)
 
+### Registro Histórico de predicciones
+
+<img width="1335" height="602" alt="Image" src="https://github.com/user-attachments/assets/40e40a50-5c20-4e5c-a8f1-c8ab42a9200e" />
 ---
 
 ## 🤖 Modelo de Machine Learning
@@ -267,7 +269,7 @@ Respuestas JSON estructuradas
 Persistencia correcta en base de datos
 
 
-Este proyecto está siendo desarrollado de manera colaborativa por:
+**Integrantes:**
 
 - Carlos Gastón Fernández 
 - Cesar Araya  
