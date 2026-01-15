@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 import joblib
 import logging
+from deep_translator import GoogleTranslator
 
 # Configuración de logging
 logging.basicConfig(level=logging.INFO)
@@ -55,3 +56,4 @@ def predict_sentiment(request: SentimentRequest):
         "confianza": float(confidence),
         "umbral": request.threshold
     }
+
