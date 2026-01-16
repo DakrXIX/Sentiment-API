@@ -21,6 +21,13 @@ def traducir_a_ingles(texto: str) -> str:
         logger.error(f"Error en traducción: {str(e)}")
         return texto
 
+    try:
+        texto_traducido = traducir_a_ingles(entrada.texto)
+        texto_limpio = limpiar_texto(texto_traducido)
+        prediccion = modelo.predict([texto_limpio])
+        sentimiento_id = int(prediccion[0])
+        sentimiento = mapa_sentimientos[sentimiento_id]
+
 # Esquema de entrada con validaciones
 class SentimentRequest(BaseModel):
     text: str = Field(..., min_length=5, description="Texto a analizar (mínimo 5 caracteres)")
@@ -65,5 +72,6 @@ def predict_sentiment(request: SentimentRequest):
         "confianza": float(confidence),
         "umbral": request.threshold
     }
+
 
 
