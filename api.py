@@ -12,6 +12,15 @@ app = FastAPI(title="Sentiment Analysis API")
 # Modelo global
 model = None
 
+#Traduccion
+def traducir_a_ingles(texto: str) -> str:
+    try:
+        translator = GoogleTranslator(source="auto", target="en")
+        return translator.translate(texto)
+    except Exception as e:
+        logger.error(f"Error en traducción: {str(e)}")
+        return texto
+
 # Esquema de entrada con validaciones
 class SentimentRequest(BaseModel):
     text: str = Field(..., min_length=5, description="Texto a analizar (mínimo 5 caracteres)")
@@ -56,4 +65,5 @@ def predict_sentiment(request: SentimentRequest):
         "confianza": float(confidence),
         "umbral": request.threshold
     }
+
 
